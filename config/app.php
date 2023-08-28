@@ -184,6 +184,10 @@ return [
 
   'aliases' => Facade::defaultAliases()->merge([
     // 'Example' => App\Facades\Example::class,
+    'Helper' => App\Helpers\Global\Helper::class,
+    'GenderType' => App\Helpers\Enum\GenderType::class,
+    'RoleType' => App\Helpers\Enum\RoleType::class,
+    'StatusActiveType' => App\Helpers\Enum\StatusActiveType::class,
   ])->toArray(),
 
 ];
