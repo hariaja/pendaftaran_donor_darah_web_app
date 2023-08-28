@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
   {
     User::create([
       'name' => RoleType::ADMIN->value,
-      'email' => 'admin@pmi.ac.id',
+      'email' => 'admin@pmi.com',
       'phone' => '085798888733',
       'email_verified_at' => now(),
       'password' => bcrypt(Helper::DEFAULT_PASSWORD),

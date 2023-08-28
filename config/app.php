@@ -161,6 +161,7 @@ return [
     */
     Yajra\DataTables\DataTablesServiceProvider::class,
     Spatie\Permission\PermissionServiceProvider::class,
+    RealRashid\SweetAlert\SweetAlertServiceProvider::class,
     /*
       * Application Service Providers...
     */
@@ -188,6 +189,7 @@ return [
     'GenderType' => App\Helpers\Enum\GenderType::class,
     'RoleType' => App\Helpers\Enum\RoleType::class,
     'StatusActiveType' => App\Helpers\Enum\StatusActiveType::class,
+    'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
   ])->toArray(),
 
 ];
