@@ -57,3 +57,15 @@ function disableSubmitButton() {
     submitButton.classList.add("loading");
     submitButton.innerText = "Loading";
 }
+
+function formatPhoneNumber() {
+    var phoneNumberInput = document.getElementById("phone");
+    var inputValue = phoneNumberInput.value.trim();
+    var numericValue = inputValue.replace(/[^\d]/g, ""); // Hanya mengambil karakter angka
+
+    if (numericValue.startsWith("0")) {
+        numericValue = "62" + numericValue.substring(1);
+    }
+
+    phoneNumberInput.value = numericValue;
+}

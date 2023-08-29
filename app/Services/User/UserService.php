@@ -7,5 +7,6 @@ use LaravelEasyRepository\BaseService;
 
 interface UserService extends BaseService
 {
+  public function query();
   public function handleUpdateOfficer(Request $request, int $id);
 }

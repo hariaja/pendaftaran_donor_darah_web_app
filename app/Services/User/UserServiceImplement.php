@@ -22,6 +22,25 @@ class UserServiceImplement extends Service implements UserService
     // 
   }
 
+  /**
+   * Get base query service.
+   *
+   * @return void
+   */
+  public function query()
+  {
+    return DB::transaction(function () {
+      return $this->mainRepository->query();
+    });
+  }
+
+  /**
+   * Handle update user where role Admin & Officer.
+   *
+   * @param  mixed $request
+   * @param  mixed $id
+   * @return void
+   */
   public function handleUpdateOfficer($request, $id)
   {
     return DB::transaction(function () use ($request, $id) {

@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
     User::create([
       'name' => "Administrator Baik",
       'email' => 'admin@gmail.com',
-      'phone' => '085798888733',
+      'phone' => '6285798888733',
       'email_verified_at' => now(),
       'password' => bcrypt(Helper::DEFAULT_PASSWORD),
       'status' => StatusActiveType::ACTIVE->value,

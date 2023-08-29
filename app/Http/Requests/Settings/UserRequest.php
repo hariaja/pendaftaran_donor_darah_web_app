@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
         Rule::unique('users', 'email')->ignore($this->user),
       ],
       'phone' => [
-        'required', 'numeric', 'min:12',
+        'required', 'numeric', 'regex:/^62\d+$/',
         Rule::unique('users', 'phone')->ignore($this->user),
       ],
       'file' => 'nullable|mimes:jpg,png|max:3048',
@@ -59,6 +59,7 @@ class UserRequest extends FormRequest
       'phone.unique' => ':attribute sudah digunakan, silahkan pilih yang lain',
       'phone.numeric' => ':attribute harus berupa angka',
       'phone.min' => ':attribute terlalu pendek, minimal :min karakter',
+      'phone.regex' => 'Nomor telepon tidak valid atau tidak sesuai format di Indonesia',
 
       'roles.required' => ':attribute tidak boleh dikosongkan',
       'roles.string' => ':attribute tidak valid, masukkan yang benar',

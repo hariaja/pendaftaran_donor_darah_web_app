@@ -72,7 +72,7 @@
           <div class="mb-4">
             <label for="phone" class="form-label">{{ trans('No. Handphone') }}</label>
             <span class="text-danger">*</span>
-            <input type="text" name="phone" id="phone" class="form-control form-control-lg @error('phone') is-invalid @enderror" value="{{ old('phone', $user->phone) }}" onkeypress="return hanyaAngka(event)" placeholder="{{ trans('Masukkan no. handphone') }}">
+            <input type="text" name="phone" id="phone" class="form-control form-control-lg @error('phone') is-invalid @enderror" value="{{ old('phone', $user->phone) }}" oninput="formatPhoneNumber()" placeholder="{{ trans('Masukkan no. handphone') }}">
             @error('phone')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror

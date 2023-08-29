@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
       RoleSeeder::class,
       BloodTypeSeeder::class,
       AdminSeeder::class,
+      OfficerSeeder::class,
     ]);
   }
 }
