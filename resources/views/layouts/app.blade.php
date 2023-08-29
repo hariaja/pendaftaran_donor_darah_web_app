@@ -20,7 +20,7 @@
     <!-- Styles -->
 
     <!-- Vite Builder -->
-    @vite(['resources/css/custom.css', 'resources/js/custom.js'])
+    @vite([])
   </head>
   <body>
     <!-- Page Container -->

@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="{{ asset('assets/template/src/js/plugins/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/template/src/js/plugins/sweetalert2/sweetalert2.min.css') }}">
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="{{ asset('assets/css/button.css') }}">
 @stack('css')
 <!-- Codebase framework -->
+<script src="{{ asset('assets/custom/css/custom.css') }}"></script>
 <link rel="stylesheet" id="css-main" href="{{ asset('assets/template/src/css/codebase.min.css') }}">
 <!-- END Stylesheets -->

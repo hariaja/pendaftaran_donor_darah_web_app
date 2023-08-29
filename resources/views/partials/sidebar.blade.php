@@ -32,6 +32,46 @@
     <!-- Sidebar Scrolling -->
     <div class="js-sidebar-scroll">
 
+      <!-- Side User -->
+      <div class="content-side content-side-user px-0 py-0">
+        <!-- Visible only in mini mode -->
+        <div class="smini-visible-block animated fadeIn px-3">
+          <img class="img-avatar img-avatar32" src="{{ me()->getUserAvatar() }}" alt="">
+        </div>
+        <!-- END Visible only in mini mode -->
+
+        <!-- Visible only in normal mode -->
+        <div class="smini-hidden text-center mx-auto">
+          <a class="img-link" href="">
+            <img class="img-avatar" src="{{ me()->getUserAvatar() }}" alt="">
+          </a>
+          <ul class="list-inline mt-3 mb-0">
+            <li class="list-inline-item">
+              <a class="link-fx text-dual fs-sm fw-semibold text-uppercase" href="{{ route('users.show', me()->uuid) }}">
+                {{ me()->name }}
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+              <a class="link-fx text-dual" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
+                <i class="fa fa-burn"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a class="link-fx text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-input').submit();">
+                <i class="fa fa-sign-out-alt"></i>
+              </a>
+
+              <form id="logout-input" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+              </form>
+            </li>
+          </ul>
+        </div>
+        <!-- END Visible only in normal mode -->
+      </div>
+      <!-- END Side User -->
+
       <!-- Side Navigation -->
       <div class="content-side content-side-full">
         <ul class="nav-main">

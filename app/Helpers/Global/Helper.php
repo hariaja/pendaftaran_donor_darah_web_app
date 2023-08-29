@@ -2,6 +2,8 @@
 
 namespace App\Helpers\Global;
 
+use App\Helpers\Enum\RoleType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,34 +36,64 @@ class Helper
   }
 
   /**
+   * Get Profile View
+   *
+   * @param  User $user
+   * @return void
+   */
+  public static function getProfileView(User $user)
+  {
+    if ($user->getRoleName() !== RoleType::DONOR->value) :
+      return view('settings.profiles.officer', compact('user'));
+    else :
+      return view('settings.profiles.donor', compact('user'));
+    endif;
+  }
+
+  /**
+   * Get redirect user after update profile or update user
+   *
+   * @param  mixed $user
+   * @return void
+   */
+  public static function getRedirectUpdateUser(User $user)
+  {
+    if (me()->id == $user->id) :
+      return redirect(route('users.show', me()->uuid))->withSuccess(trans('Berhasil Memperbaharui Profil Anda'));
+    endif;
+
+    return redirect(route('users.index'))->withSuccess(trans('session.update'));
+  }
+
+  /**
    * Change format date to indonesian date.
    *
    * @param  mixed $date
-   * @param  mixed $show_day
+   * @param  mixed $showDay
    * @return void
    */
-  public static function parseDateTime($date, bool $show_day = true)
+  public static function parseDateTime($date, bool $showDay = true)
   {
-    $date_name  = array(
+    $dateName  = array(
       'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'
     );
 
-    $month_name = array(
+    $monthName = array(
       1 =>
       'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
     );
 
-    $tahun = substr($date, 0, 4);
-    $bulan = $month_name[(int) substr($date, 5, 2)];
-    $tanggal = substr($date, 8, 2);
+    $year = substr($date, 0, 4);
+    $month = $monthName[(int) substr($date, 5, 2)];
+    $dateGen = substr($date, 8, 2);
     $text = '';
 
-    if ($show_day) {
-      $urutan_hari = date('w', mktime(0, 0, 0, substr($date, 5, 2), $tanggal, $tahun));
-      $hari = $date_name[$urutan_hari];
-      $text .= "$hari, $tanggal $bulan $tahun";
+    if ($showDay) {
+      $orderOfTheDay = date('w', mktime(0, 0, 0, substr($date, 5, 2), $dateGen, $year));
+      $day = $dateName[$orderOfTheDay];
+      $text .= "$day, $dateGen $month $year";
     } else {
-      $text .= "$tanggal $bulan $tahun";
+      $text .= "$dateGen $month $year";
     }
 
     return $text;

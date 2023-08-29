@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -73,9 +74,23 @@ class User extends Authenticatable
   }
 
   /**
+   * Get user default user avatar.
+   *
+   * @return void
+   */
+  public function getUserAvatar()
+  {
+    if ($this->hasAvatar()) :
+      return Storage::url($this->avatar);
+    else :
+      return asset('assets/images/default.png');
+    endif;
+  }
+
+  /**
    * Get the user role name.
    */
-  public function isRoleName(): string
+  public function getRoleName(): string
   {
     return $this->roles->implode('name');
   }
@@ -83,7 +98,7 @@ class User extends Authenticatable
   /**
    * Get the user role id.
    */
-  public function isRoleId(): int
+  public function getRoleId(): int
   {
     return $this->roles->implode('id');
   }

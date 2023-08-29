@@ -18,12 +18,12 @@
 
     <!-- Stylesheets -->
     <!-- Codebase framework -->
-    <link rel="stylesheet" href="{{ asset('assets/css/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/custom/css/custom.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ asset('assets/template/src/css/codebase.min.css') }}">
     <!-- END Stylesheets -->
     
     <!-- Vite Builder -->
-    @vite(['resources/css/custom.css', 'resources/js/custom.js'])
+    @vite([])
   </head>
   <body>
     <div id="page-container" class="main-content-boxed">
@@ -34,7 +34,7 @@
 
     <!-- JS -->
     <script src="{{ asset('assets/template/src/js/codebase.app.min.js') }}"></script>
-    <script src="{{ asset('assets/js/button.js') }}"></script>
+    <script src="{{ asset('assets/custom/js/custom.js') }}"></script>
     <script src="{{ asset('assets/template/src/js/lib/jquery.min.js') }}"></script>
     @include('sweetalert::alert')
   </body>

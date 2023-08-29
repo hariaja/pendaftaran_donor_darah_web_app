@@ -1,6 +1,6 @@
 <script src="{{ asset('assets/template/src/js/codebase.app.min.js') }}"></script>
+<script src="{{ asset('assets/custom/js/custom.js') }}"></script>
 <script src="{{ asset('assets/template/src/js/lib/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/button.js') }}"></script>
 
 <!-- Page JS Plugins -->
 <script src="{{ asset('assets/template/src/js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -17,7 +17,6 @@
 <script src="{{ asset('assets/template/src/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
 <script src="{{ asset('assets/template/src/js/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/template/src/js/plugins/select2/js/select2.full.min.js') }}"></script>
-
 <!-- Page JS Code -->
 <script src="{{ asset('assets/template/src/js/pages/be_tables_datatables.min.js') }}"></script>
 

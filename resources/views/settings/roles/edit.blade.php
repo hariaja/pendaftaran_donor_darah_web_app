@@ -35,6 +35,7 @@
 
             <div class="mb-4">
               <label class="form-label" for="name">{{ trans('Nama Peran') }}</label>
+              <span class="text-danger">*</span>
               <input type="text" name="name" id="name" value="{{ old('name', $role->name) }}" class="form-control @error('name') is-invalid @enderror" placeholder="{{ trans('Nama Peran Pengguna') }}" onkeypress="return hanyaHuruf(event)">
               @error('name')
                 <div class="invalid-feedback">
