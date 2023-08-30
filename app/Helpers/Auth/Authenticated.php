@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Enum\RoleType;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,15 @@ function isRoleId(): int
 function isRoleName(): string
 {
   return me()->roles->implode('name');
+}
+
+function redirectToHome()
+{
+  if (me()->roles->implode('name') === RoleType::DONOR->value) {
+    return route('donors.home');
+  } else {
+    return route('home');
+  }
 }
 
 // function checkPermission(string $permission)

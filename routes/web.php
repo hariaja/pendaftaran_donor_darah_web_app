@@ -27,6 +27,7 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 $roles = implode(',', [RoleType::ADMIN->value, RoleType::OFFICER->value]);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware([
   'auth',
@@ -34,7 +35,6 @@ Route::middleware([
   'verified',
   "check.role:{$roles}"
 ])->group(function () {
-  Route::get('/home', [HomeController::class, 'index'])->name('home');
   Route::prefix('settings')->group(function () {
     // Role management.
     Route::resource('roles', RoleController::class)->except('show');
