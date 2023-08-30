@@ -2,16 +2,19 @@
 
 namespace App\DataTables\Settings;
 
-use App\Models\User;
+use App\Models\Donor;
 use App\Helpers\Enum\RoleType;
+use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use App\Services\User\UserService;
+use App\Services\Donor\DonorService;
 use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class UserDataTable extends DataTable
+class DonorDataTable extends DataTable
 {
   /**
    * Create a new datatables instance.
@@ -19,7 +22,7 @@ class UserDataTable extends DataTable
    * @return void
    */
   public function __construct(
-    protected UserService $userService,
+    protected DonorService $donorService,
   ) {
     // 
   }
@@ -33,24 +36,26 @@ class UserDataTable extends DataTable
   {
     return (new EloquentDataTable($query))
       ->addIndexColumn()
-      ->addColumn('roles', fn ($row) => $row->getRoleBadge())
-      ->editColumn('status', fn ($row) => $row->getAccountStatus())
-      ->addColumn('edit_status', 'settings.users.status')
-      ->addColumn('action', 'settings.users.action')
+      ->addColumn('name', fn ($row) => $row->user->name)
+      ->addColumn('phone', fn ($row) => $row->user->phone)
+      ->addColumn('status', fn ($row) => $row->getAccountStatus())
+      ->editColumn('age', fn ($row) => "{$row->age} Tahun")
+      ->addColumn('edit_status', 'settings.donors.status')
+      ->addColumn('action', 'settings.donors.action')
       ->rawColumns([
-        'status',
         'action',
-        'roles',
         'edit_status',
+        'roles',
+        'status'
       ]);
   }
 
   /**
    * Get the query source of dataTable.
    */
-  public function query(User $model): QueryBuilder
+  public function query(Donor $model): QueryBuilder
   {
-    return $this->userService->getUserByRole(RoleType::OFFICER->value)->oldest('name');
+    return $this->donorService->query()->latest();
   }
 
   /**
@@ -59,16 +64,8 @@ class UserDataTable extends DataTable
   public function html(): HtmlBuilder
   {
     return $this->builder()
-      ->setTableId('user-table')
+      ->setTableId('donor-table')
       ->columns($this->getColumns())
-      ->ajax([
-        'url' => route('users.index'),
-        'type' => 'GET',
-        'data' => "
-          function(data) {
-            data.status = $('select[name=status]').val();
-          }"
-      ])
       ->addTableClass([
         'table',
         'table-striped',
@@ -103,11 +100,11 @@ class UserDataTable extends DataTable
       Column::make('name')
         ->title(trans('Nama'))
         ->addClass('text-center'),
-      Column::make('email')
-        ->title(trans('Email'))
+      Column::make('phone')
+        ->title(trans('Telepon'))
         ->addClass('text-center'),
-      Column::make('roles')
-        ->title(trans('Tipe Akun'))
+      Column::make('age')
+        ->title(trans('Usia'))
         ->addClass('text-center'),
       Column::make('status')
         ->title(trans('Status'))
@@ -129,6 +126,6 @@ class UserDataTable extends DataTable
    */
   protected function filename(): string
   {
-    return 'User_' . date('YmdHis');
+    return 'Donor_' . date('YmdHis');
   }
 }

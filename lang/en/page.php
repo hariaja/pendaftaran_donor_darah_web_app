@@ -25,12 +25,12 @@ return [
   ],
 
   'users' => [
-    'title' => 'Pengguna',
-    'index' => 'Daftar Data Pengguna',
-    'create' => 'Tambah Data Pengguna',
-    'edit' => 'Ubah Data Pengguna',
-    'show' => 'Detail Data Pengguna',
-    'delete' => 'Hapus Pengguna',
+    'title' => 'Petugas',
+    'index' => 'Daftar Data Petugas',
+    'create' => 'Tambah Data Petugas',
+    'edit' => 'Ubah Data Petugas',
+    'show' => 'Detail Data Petugas',
+    'delete' => 'Hapus Petugas',
   ],
 
   'roles' => [
@@ -40,5 +40,14 @@ return [
     'edit' => 'Ubah Role & Permission',
     'show' => 'Detail Role & Permission',
     'delete' => 'Hapus Role & Permission',
+  ],
+
+  'donations' => [
+    'title' => 'Pendonor',
+    'index' => 'Daftar Data Pendonor',
+    'create' => 'Tambah Data Pendonor',
+    'edit' => 'Ubah Data Pendonor',
+    'show' => 'Detail Data Pendonor',
+    'delete' => 'Hapus Pendonor',
   ],
 ];

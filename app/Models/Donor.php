@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
+use App\Helpers\Enum\StatusActiveType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,6 +55,14 @@ class Donor extends Model
   public function getRouteKeyName(): string
   {
     return 'uuid';
+  }
+
+  public function getAccountStatus()
+  {
+    $badgeClass = ($this->user->status == StatusActiveType::ACTIVE->value) ? 'badge text-success' : 'badge text-danger';
+    $badgeText = ($this->user->status == StatusActiveType::ACTIVE->value) ? 'Active' : 'Inactive';
+
+    return "<span class='{$badgeClass}'>{$badgeText}</span>";
   }
 
   /**

@@ -82,7 +82,7 @@
             </a>
           </li>
 
-          @canany(['roles.index', 'users.index'])
+          @canany(['roles.index', 'users.index', 'donations.index'])
             <li class="nav-main-heading">{{ trans('Management') }}</li>
             <li class="nav-main-item {{ Request::is('settings*') ? 'open' : '' }}">
               <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="{{ Request::is('settings*') ? 'true' : 'false' }}" href="#">
@@ -91,18 +91,25 @@
               </a>
               <ul class="nav-main-submenu">
                 @can('users.index')
-                <li class="nav-main-item">
-                  <a class="nav-main-link {{ Request::is('settings/users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                    <span class="nav-main-link-name">{{ trans('page.users.title') }}</span>
-                  </a>
-                </li>
+                  <li class="nav-main-item">
+                    <a class="nav-main-link {{ Request::is('settings/users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                      <span class="nav-main-link-name">{{ trans('Petugas') }}</span>
+                    </a>
+                  </li>
+                @endcan
+                @can('donations.index')
+                  <li class="nav-main-item">
+                    <a class="nav-main-link {{ Request::is('settings/donors*') ? 'active' : '' }}" href="{{ route('donations.index') }}">
+                      <span class="nav-main-link-name">{{ trans('Pendonor') }}</span>
+                    </a>
+                  </li>
                 @endcan
                 @can('roles.index')
-                <li class="nav-main-item">
-                  <a class="nav-main-link {{ Request::is('settings/roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
-                    <span class="nav-main-link-name">{{ trans('page.roles.title') }}</span>
-                  </a>
-                </li>
+                  <li class="nav-main-item">
+                    <a class="nav-main-link {{ Request::is('settings/roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
+                      <span class="nav-main-link-name">{{ trans('page.roles.title') }}</span>
+                    </a>
+                  </li>
                 @endcan
               </ul>
             </li>

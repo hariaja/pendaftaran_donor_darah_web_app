@@ -34,17 +34,6 @@
           </select>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="mb-1">
-          <label for="roles" class="form-label">{{ trans('Filter Berdasarkan Nama Peran') }}</label>
-          <select type="text" class="form-select" name="roles" id="roles">
-            <option value="{{ Helper::ALL }}">{{ Helper::ALL }}</option>
-            @foreach ($roleTypes as $item)
-              <option value="{{ $item }}">{{ ucfirst($item) }}</option>
-            @endforeach
-          </select>
-        </div>
-      </div>
     </div>
 
     <div class="my-3">

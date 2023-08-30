@@ -25,7 +25,6 @@ class PermissionSeeder extends Seeder
       'users.show',
       'users.password',
       'users.status',
-      'users.image',
       'users.update',
       'users.destroy',
 
@@ -36,12 +35,19 @@ class PermissionSeeder extends Seeder
       'roles.edit',
       'roles.update',
       'roles.destroy',
+
+      // Halaman Donatur
+      'donations.index',
+      'donations.show',
+      'donations.update',
+      'donations.destroy',
     ];
 
     $guardName = 'web';
     $permissionCategoryId = [
       'users' => 1,
       'roles' => 2,
+      'donations' => 3,
     ];
 
     foreach ($permissions as $permission) :

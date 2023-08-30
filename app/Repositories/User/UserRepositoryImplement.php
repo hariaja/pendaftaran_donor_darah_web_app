@@ -37,10 +37,17 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
   }
 
   /**
+   * Get all user group by roles.
+   */
+  public function getUserByRole($role)
+  {
+    return $this->query()->select('*')->whereHas('roles', function ($row) use ($role) {
+      $row->where('name', $role);
+    })->active();
+  }
+
+  /**
    * Update Status Account User
-   *
-   * @param  mixed $id
-   * @return void
    */
   public function updateStatusAccount($id)
   {

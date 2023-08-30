@@ -53,6 +53,19 @@ class UserServiceImplement extends Service implements UserService
   }
 
   /**
+   * Get all user group by roles.
+   *
+   * @param  mixed $role
+   * @return void
+   */
+  public function getUserByRole($role)
+  {
+    return DB::transaction(function () use ($role) {
+      return $this->mainRepository->getUserByRole($role);
+    });
+  }
+
+  /**
    * Handle create new donor and store to database.
    *
    * @param  mixed $request

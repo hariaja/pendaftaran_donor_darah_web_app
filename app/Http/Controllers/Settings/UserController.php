@@ -38,7 +38,6 @@ class UserController extends Controller
     $statusUserTypes = StatusActiveType::toArray();
 
     return $dataTable
-      ->addScope(new RoleTypeFilter($request))
       ->addScope(new StatusActiveFilter($request))
       ->render('settings.users.index', compact(
         'roleTypes',

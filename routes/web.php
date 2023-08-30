@@ -4,6 +4,7 @@ use App\Helpers\Enum\RoleType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Settings\DonorController;
 use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\PasswordController;
@@ -40,8 +41,14 @@ Route::middleware([
 
     // User management.
     Route::patch('users/status/{user}', [UserController::class, 'status'])->name('users.status');
-    Route::post('users/image/delete/{user}', [UserController::class, 'image'])->name('users.image');
     Route::resource('users', UserController::class)->except('edit');
+
+    // Donor Management.
+    Route::resource('donors', DonorController::class)->names('donations')->except(
+      'edit',
+      'create',
+      'store',
+    );
   });
 
   // Management password users.
