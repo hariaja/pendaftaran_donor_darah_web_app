@@ -7,7 +7,7 @@
       {{-- <a class="link-fx fw-bold" href="{{ route('donors.home') }}">
         <img src="{{ asset('assets/images/logo_light.png') }}" alt="" width="30%">
       </a> --}}
-      <a class="link-fx fw-bold" href="index.html">
+      <a class="link-fx fw-bold" href="{{ route('donors.home') }}">
         <span class="fs-4 text-dual">PMI</span> <span class="fs-4 text-danger">SUKABUMI</span>
       </a>
       <!-- END Logo -->
