@@ -2,12 +2,15 @@
 
 namespace App\Helpers\Global;
 
+use App\Helpers\Enum\GenderType;
+use App\Helpers\Enum\RhesusType;
 use App\Models\User;
 use App\Models\Donor;
 use Illuminate\Http\Request;
 use App\Helpers\Enum\RoleType;
 use Illuminate\Support\Carbon;
 use App\Helpers\Enum\StatusActiveType;
+use App\Models\BloodType;
 use Illuminate\Support\Facades\Storage;
 
 class Helper
@@ -49,7 +52,19 @@ class Helper
     if ($user->getRoleName() !== RoleType::DONOR->value) :
       return view('settings.profiles.officer', compact('user'));
     else :
-      return view('settings.profiles.donor', compact('user'));
+      $genders = GenderType::toArray();
+      $rhesus = RhesusType::toArray();
+      $bloods = BloodType::query()->oldest('type')->get();
+      return view('settings.profiles.donor', compact('user', 'genders', 'rhesus', 'bloods'));
+    endif;
+  }
+
+  public static function getChangePasswordView(User $user)
+  {
+    if ($user->getRoleName() !== RoleType::DONOR->value) :
+      return view('settings.passwords.edit', compact('user'));
+    else :
+      return view('bases.settings.password', compact('user'));
     endif;
   }
 

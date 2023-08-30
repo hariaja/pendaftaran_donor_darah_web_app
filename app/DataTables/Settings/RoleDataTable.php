@@ -2,6 +2,7 @@
 
 namespace App\DataTables\Settings;
 
+use App\Helpers\Enum\RoleType;
 use App\Models\Role;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -51,7 +52,7 @@ class RoleDataTable extends DataTable
    */
   public function query(): QueryBuilder
   {
-    return $this->roleService->query()->oldest('name');
+    return $this->roleService->selectRoleWhereIn(RoleType::toArray(0, 1))->oldest('name');
   }
 
   /**

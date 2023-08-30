@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Helpers\Global\Helper;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ trait UpdatePassword
    */
   public function showChangePasswordForm(User $user)
   {
-    return view('settings.passwords.edit', compact('user'));
+    return Helper::getChangePasswordView($user);
   }
 
   public function store(PasswordRequest $request)

@@ -41,12 +41,13 @@
               {{ me()->name }}
             </h5>
           </div>
+          {{-- route('users.show', me()->uuid) --}}
           <div class="p-2">
-            <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="{{ route('users.show', me()->uuid) }}">
+            <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="{{ isRoleName() === RoleType::DONOR->value ? route('donors.users.show', me()->uuid) : route('users.show', me()->uuid) }}">
               <span>{{ trans('Profil') }}</span>
               <i class="fa fa-fw fa-user opacity-25"></i>
             </a>
-            <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="{{ route('users.password', me()->uuid) }}">
+            <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="{{ isRoleName() === RoleType::DONOR->value ? route('donors.password', me()->uuid) : route('users.password', me()->uuid) }}">
               <span>{{ trans('Ubah Kata Sandi') }}</span>
               <i class="fa fa-fw fa-lock opacity-25"></i>
             </a>
