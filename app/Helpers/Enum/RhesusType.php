@@ -10,4 +10,5 @@ enum RhesusType: string
 
   case POSITIVE = 'Positif (+)';
   case NEGATIVE = 'Negatif (-)';
+  case UNKNOWN = 'Tidak Tahu';
 }

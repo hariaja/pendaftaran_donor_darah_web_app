@@ -2,11 +2,13 @@
 
 namespace App\Services\User;
 
+use App\Helpers\Enum\RoleType;
 use App\Helpers\Global\Helper;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Service;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Enum\StatusActiveType;
+use App\Repositories\Donor\DonorRepository;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\User\UserRepository;
@@ -20,7 +22,8 @@ class UserServiceImplement extends Service implements UserService
 
   public function __construct(
     protected UserRepository $mainRepository,
-    protected RoleRepository $roleRepository
+    protected RoleRepository $roleRepository,
+    protected DonorRepository $donorRepository,
   ) {
     // 
   }
@@ -46,6 +49,60 @@ class UserServiceImplement extends Service implements UserService
   {
     return DB::transaction(function () {
       return $this->mainRepository->getUserNotAdmin();
+    });
+  }
+
+  /**
+   * Handle create new donor and store to database.
+   *
+   * @param  mixed $request
+   * @return void
+   */
+  public function handleCreateDonor($request)
+  {
+    return DB::transaction(function () use ($request) {
+      // Define role
+      $roleName = RoleType::DONOR->value;
+
+      // Get Data Role
+      $role = $this->roleRepository->selectRoleWhereIn([$roleName])->first();
+
+      // Prefix folder to save images
+      $path = strtolower($this->getRoleName($role->id));
+
+      /**
+       * Jika ada avatar yang diupload maka akan digunakan sebagai avatar user
+       * Jika tidak ada, maka avatar secara otomatis bernilai null
+       */
+      $avatar = Helper::uploadFile($request, "images/{$path}", null);
+
+      // Define Age Donor
+      $age = Helper::convertToAge($request->dob);
+
+      // Create user data
+      $validation = $request->validated();
+      $validation['avatar'] = $avatar;
+      $validation['password'] = Hash::make($request->password);
+      $validation['status'] = StatusActiveType::ACTIVE->value;
+
+      $user = $this->mainRepository->create($validation);
+      $user->assignRole($roleName);
+
+      // Create to donor table
+      $data = [
+        'nik' => $validation['nik'],
+        'user_id' => $user->id,
+        'blood_type_id' => $validation['blood_type_id'],
+        'rhesus' => $request['rhesus'],
+        'gender' => $validation['gender'],
+        'dob' => $validation['dob'],
+        'age' => $age,
+        'job_title' => $validation['job_title'],
+        'address' => $validation['address'],
+      ];
+
+      $this->donorRepository->create($data);
+      return $user;
     });
   }
 

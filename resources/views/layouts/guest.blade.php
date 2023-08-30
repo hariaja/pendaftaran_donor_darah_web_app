@@ -19,6 +19,8 @@
     <!-- Stylesheets -->
     <!-- Codebase framework -->
     <link rel="stylesheet" href="{{ asset('assets/custom/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/template/src/js/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/template/src/js/plugins/flatpickr/flatpickr.min.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ asset('assets/template/src/css/codebase.min.css') }}">
     <!-- END Stylesheets -->
     
@@ -36,6 +38,17 @@
     <script src="{{ asset('assets/template/src/js/codebase.app.min.js') }}"></script>
     <script src="{{ asset('assets/custom/js/custom.js') }}"></script>
     <script src="{{ asset('assets/template/src/js/lib/jquery.min.js') }}"></script>
+
+    <script src="{{ asset('assets/template/src/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('assets/template/src/js/plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <script>
+      Codebase.helpersOnLoad([
+        'jq-select2',
+        'js-flatpickr',
+      ])
+    </script>
+
     @include('sweetalert::alert')
   </body>
 </html>
