@@ -2,9 +2,7 @@
 @section('title') {{ trans('page.roles.title') }} @endsection
 @section('hero')
 <div class="content content-full">
-  <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-    <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">{{ trans('page.roles.title') }}</h1>
-  </div>
+  <h2 class="content-heading">{{ trans('page.roles.title') }}</h2>
 </div>
 @endsection
 @section('content')

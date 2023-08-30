@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Icons -->
@@ -26,24 +24,23 @@
   </head>
   <body>
     <!-- Page Container -->
-    <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
-
+    <div id="page-container" class="sidebar-dark side-scroll page-header-fixed page-header-dark main-content-boxed">
       <!-- Sidebar -->
-      @include('partials.sidebar')
+      @include('bases.components.sidebar')
       <!-- END Sidebar -->
 
       <!-- Header -->
-      <header id="page-header">
-        @include('partials.header')
-      </header>
+      @include('bases.components.header')
       <!-- END Header -->
 
       <!-- Main Container -->
       <main id="main-container">
-        <!-- If u want to add hero page -->
+        <!-- Hero -->
         @yield('hero')
+        <!-- END Hero -->
+
         <!-- Page Content -->
-        <div class="content">
+        <div class="content content-full">
           @yield('content')
         </div>
         <!-- END Page Content -->
@@ -52,7 +49,7 @@
 
       <!-- Footer -->
       <footer id="page-footer">
-        @include('partials.footer')
+        @include('bases.components.footer')
       </footer>
       <!-- END Footer -->
     </div>

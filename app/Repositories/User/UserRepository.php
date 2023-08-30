@@ -7,4 +7,6 @@ use LaravelEasyRepository\Repository;
 interface UserRepository extends Repository
 {
   public function query();
+  public function getUserNotAdmin();
+  public function updateStatusAccount(int $id);
 }

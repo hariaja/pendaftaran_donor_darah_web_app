@@ -9,11 +9,12 @@ use App\Helpers\Enum\RoleType;
 use Laravel\Sanctum\HasApiTokens;
 use App\Helpers\Enum\StatusActiveType;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -25,6 +26,7 @@ class User extends Authenticatable
    * @var array<int, string>
    */
   protected $fillable = [
+    'uuid',
     'name',
     'email',
     'phone',
@@ -104,15 +106,15 @@ class User extends Authenticatable
   }
 
   /**
-   * Get all user, exclude administrator.
+   * Get all user except :value
    *
    * @param  mixed $query
    * @return void
    */
-  public function scopeExcludeAdmin($query)
+  public function scopeWhereNotAdmin($query)
   {
-    return $query->whereDoesntHave('roles', function ($q) {
-      $q->where('name', RoleType::ADMIN->value);
+    return $query->whereDoesntHave('roles', function ($row) {
+      $row->where('name', RoleType::ADMIN->value);
     });
   }
 
@@ -127,5 +129,55 @@ class User extends Authenticatable
   public function getActive(): Collection
   {
     return $this->active()->get();
+  }
+
+  /**
+   * Define badge status account.
+   *
+   * @return string
+   */
+  public function getAccountStatus(): string
+  {
+    $badgeClass = ($this->status == StatusActiveType::ACTIVE->value) ? 'badge text-success' : 'badge text-danger';
+    $badgeText = ($this->status == StatusActiveType::ACTIVE->value) ? 'Active' : 'Inactive';
+
+    return "<span class='{$badgeClass}'>{$badgeText}</span>";
+  }
+
+  /**
+   * Define badge type roles.
+   *
+   * @return string
+   */
+  public function getRoleBadge(): string
+  {
+    $roleName = $this->getRoleName();
+
+    switch ($roleName) {
+      case RoleType::ADMIN->value:
+        $badgeClass = 'badge text-smooth';
+        break;
+      case RoleType::OFFICER->value:
+        $badgeClass = 'badge text-info';
+        break;
+      case RoleType::DONOR->value:
+        $badgeClass = 'badge text-warning';
+        break;
+      default:
+        $badgeClass = 'badge';
+        break;
+    }
+
+    return "<span class='{$badgeClass}'>{$roleName}</span>";
+  }
+
+  /**
+   * Relation to donor model.
+   *
+   * @return HasOne
+   */
+  public function donor(): HasOne
+  {
+    return $this->hasOne(Donor::class, 'user_id');
   }
 }

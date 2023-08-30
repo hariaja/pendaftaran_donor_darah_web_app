@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Enum\RoleType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -24,9 +25,15 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+$roles = implode(',', [RoleType::ADMIN->value, RoleType::OFFICER->value]);
 
-Route::middleware(['auth', 'permission', 'verified'])->group(function () {
+Route::middleware([
+  'auth',
+  'permission',
+  'verified',
+  "check.role:{$roles}"
+])->group(function () {
+  Route::get('/home', [HomeController::class, 'index'])->name('home');
   Route::prefix('settings')->group(function () {
     // Role management.
     Route::resource('roles', RoleController::class)->except('show');
@@ -34,10 +41,12 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     // User management.
     Route::patch('users/status/{user}', [UserController::class, 'status'])->name('users.status');
     Route::post('users/image/delete/{user}', [UserController::class, 'image'])->name('users.image');
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except('edit');
   });
 
   // Management password users.
   Route::get('users/password/{user}', [PasswordController::class, 'showChangePasswordForm'])->name('users.password');
   Route::post('users/password', [PasswordController::class, 'store']);
 });
+
+require __DIR__ . '/donor.php';

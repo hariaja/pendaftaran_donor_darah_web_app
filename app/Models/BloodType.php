@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BloodType extends Model
 {
@@ -27,5 +28,14 @@ class BloodType extends Model
   public function getRouteKeyName(): string
   {
     return 'uuid';
+  }
+
+  /**
+   * Relation to donor model.
+   *
+   */
+  public function donors(): HasMany
+  {
+    return $this->hasMany(Donor::class, 'blood_type_id');
   }
 }

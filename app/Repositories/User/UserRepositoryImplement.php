@@ -2,8 +2,9 @@
 
 namespace App\Repositories\User;
 
-use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\User;
+use App\Helpers\Enum\StatusActiveType;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class UserRepositoryImplement extends Eloquent implements UserRepository
 {
@@ -21,11 +22,34 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
 
   /**
    * Base query in model.
-   *
-   * @return void
    */
   public function query()
   {
     return $this->model->query();
+  }
+
+  /**
+   * Get All User Where Role Not Admin
+   */
+  public function getUserNotAdmin()
+  {
+    return $this->query()->select('*')->whereNotAdmin();
+  }
+
+  /**
+   * Update Status Account User
+   *
+   * @param  mixed $id
+   * @return void
+   */
+  public function updateStatusAccount($id)
+  {
+    $user = $this->findOrFail($id);
+    $newStatus = ($user->status == StatusActiveType::ACTIVE->value) ? StatusActiveType::INACTIVE->value : StatusActiveType::ACTIVE->value;
+    $user->updateOrFail([
+      'status' => $newStatus,
+    ]);
+
+    return $user;
   }
 }

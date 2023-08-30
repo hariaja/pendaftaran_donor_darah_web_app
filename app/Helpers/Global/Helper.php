@@ -2,9 +2,12 @@
 
 namespace App\Helpers\Global;
 
-use App\Helpers\Enum\RoleType;
 use App\Models\User;
+use App\Models\Donor;
 use Illuminate\Http\Request;
+use App\Helpers\Enum\RoleType;
+use Illuminate\Support\Carbon;
+use App\Helpers\Enum\StatusActiveType;
 use Illuminate\Support\Facades\Storage;
 
 class Helper
@@ -66,6 +69,20 @@ class Helper
   }
 
   /**
+   * Convert date of birth to age.
+   *
+   * @param  mixed $value
+   * @return void
+   */
+  public static function convertToAge(string $value)
+  {
+    $currentDate = Carbon::now()->format('Y-m-d');
+    $brithDate = Carbon::parse($value);
+    $age = $brithDate->diffInYears($currentDate);
+    return $age;
+  }
+
+  /**
    * Change format date to indonesian date.
    *
    * @param  mixed $date
@@ -97,5 +114,52 @@ class Helper
     }
 
     return $text;
+  }
+
+  /**
+   * Create User Donor.
+   *
+   * @return void
+   */
+  public static function createDonorUser(
+    $name,
+    $email,
+    $phone,
+    $nik,
+    $gender,
+    $rhesus,
+    $dob,
+    $jobTitle,
+    $address,
+    $role,
+    $bloodType
+  ) {
+    $user = User::create([
+      'name' => $name,
+      'email' => $email,
+      'phone' => $phone,
+      'email_verified_at' => now(),
+      'password' => bcrypt(self::DEFAULT_PASSWORD),
+      'status' => StatusActiveType::ACTIVE->value,
+    ])->assignRole($role);
+
+    // Convert date of birth to age.
+    $dateBrith = date('Y-m-d', strtotime($dob));
+    $age = self::convertToAge($dateBrith);
+
+    // Create donor data to database.
+    Donor::create([
+      'user_id' => $user->id,
+      'blood_type_id' => $bloodType,
+      'nik' => $nik,
+      'gender' => $gender,
+      'rhesus' => $rhesus,
+      'dob' => $dob,
+      'age' => $age,
+      'job_title' => $jobTitle,
+      'address' => $address,
+    ]);
+
+    return $user;
   }
 }

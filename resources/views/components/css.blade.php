@@ -7,6 +7,6 @@
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 @stack('css')
 <!-- Codebase framework -->
-<script src="{{ asset('assets/custom/css/custom.css') }}"></script>
+<link rel="stylesheet" href="{{ asset('assets/custom/css/custom.css') }}">
 <link rel="stylesheet" id="css-main" href="{{ asset('assets/template/src/css/codebase.min.css') }}">
 <!-- END Stylesheets -->

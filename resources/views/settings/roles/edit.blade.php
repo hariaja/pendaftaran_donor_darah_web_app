@@ -2,18 +2,14 @@
 @section('title') {{ trans('page.roles.title') }} @endsection
 @section('hero')
 <div class="content content-full">
-  <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-    <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">{{ trans('page.roles.title') }}</h1>
-    <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
-      <ol class="breadcrumb breadcrumb-alt">
-        <li class="breadcrumb-item">
-          <a href="{{ route('roles.index') }}" class="btn btn-sm btn-block-option text-danger">
-            <i class="fa fa-xs fa-chevron-left me-1"></i>
-            {{ trans('button.back') }}
-          </a>
-        </li>
-      </ol>
-    </nav>
+  <div class="content-heading">
+    <div class="d-flex justify-content-between align-items-sm-center">
+      {{ trans('page.roles.title') }}
+      <a href="{{ route('roles.index') }}" class="btn btn-sm btn-block-option text-danger">
+        <i class="fa fa-xs fa-chevron-left me-1"></i>
+        {{ trans('button.back') }}
+      </a>
+    </div>
   </div>
 </div>
 @endsection
