@@ -136,7 +136,9 @@ trait HandleAuthenticatesUsers
   protected function authenticated(Request $request, $user)
   {
     if ($user->hasRole(RoleType::DONOR->value)) {
-      return redirect()->route('donors.home');
+      return redirect(route('donors.home'));
+    } else {
+      return redirect(route('home'));
     }
   }
 
