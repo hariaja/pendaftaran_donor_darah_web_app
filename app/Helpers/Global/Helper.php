@@ -132,6 +132,39 @@ class Helper
   }
 
   /**
+   * greeting
+   *
+   * @return string
+   */
+  public static function greeting(): string
+  {
+    $now = Carbon::now();
+    $hour = $now->hour;
+
+    $greeting = "";
+
+    switch (true) {
+      case $hour >= 0 && $hour < 4:
+        $greeting = "Selamat Malam";
+        break;
+      case $hour >= 4 && $hour < 11:
+        $greeting = "Selamat Pagi";
+        break;
+      case $hour >= 11 && $hour < 15:
+        $greeting = "Selamat Siang";
+        break;
+      case $hour >= 15 && $hour < 18:
+        $greeting = "Selamat Sore";
+        break;
+      default:
+        $greeting = "Selamat Malam";
+        break;
+    }
+
+    return $greeting;
+  }
+
+  /**
    * Create User Donor.
    *
    * @return void

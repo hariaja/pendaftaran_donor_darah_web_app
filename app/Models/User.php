@@ -8,6 +8,7 @@ use App\Traits\Uuid;
 use App\Helpers\Enum\RoleType;
 use Laravel\Sanctum\HasApiTokens;
 use App\Helpers\Enum\StatusActiveType;
+use App\Notifications\Emails\ResetPasswordNotification;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -169,6 +170,14 @@ class User extends Authenticatable
     }
 
     return "<span class='{$badgeClass}'>{$roleName}</span>";
+  }
+
+  /**
+   * sendPasswordResetNotification
+   */
+  public function sendPasswordResetNotification($token)
+  {
+    $this->notify(new ResetPasswordNotification($token, $this));
   }
 
   /**

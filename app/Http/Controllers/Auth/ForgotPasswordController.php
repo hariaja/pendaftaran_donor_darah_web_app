@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Traits\HandleCustomPasswordResetEmails;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class ForgotPasswordController extends Controller
 {
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
     |--------------------------------------------------------------------------
@@ -18,5 +20,5 @@ class ForgotPasswordController extends Controller
     |
     */
 
-    use SendsPasswordResetEmails;
+  use HandleCustomPasswordResetEmails;
 }

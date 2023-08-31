@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 @section('title', trans('page.register.title'))
 @section('content')
-<div class="bg-gd-dusk">
+<div class="bg-gd-emerald">
   <div class="hero-static content content-full bg-body-extra-light">
 
     <!-- Header -->

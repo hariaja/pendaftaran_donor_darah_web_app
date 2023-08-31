@@ -1,7 +1,7 @@
 @extends('bases.layouts.app')
 @section('title', trans('page.overview.title'))
 @section('hero')
-<div class="bg-image" style="background-image: url('assets/media/photos/photo27@2x.jpg');">
+<div class="bg-image" style="background-image: url('{{ asset('assets/template/src/media/photos/photo27@2x.jpg') }}');">
   <div class="bg-white-90">
     <div class="content text-center">
       <div class="pt-5 pb-3">
