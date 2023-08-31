@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\DataTables\Settings\DonorDataTable;
-use App\Helpers\Global\Helper;
 use App\Models\Donor;
 use Illuminate\Http\Request;
+use App\Helpers\Global\Helper;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
 use App\Services\Donor\DonorService;
+use App\Helpers\Enum\StatusActiveType;
+use App\DataTables\Settings\DonorDataTable;
+use App\DataTables\Scopes\StatusDonorFilter;
 
 class DonorController extends Controller
 {
@@ -27,9 +29,14 @@ class DonorController extends Controller
   /**
    * Display a listing of the resource.
    */
-  public function index(DonorDataTable $dataTable)
+  public function index(DonorDataTable $dataTable, Request $request)
   {
-    return $dataTable->render('settings.donors.index');
+    $statusUserTypes = StatusActiveType::toArray();
+    return $dataTable
+      ->addScope(new StatusDonorFilter($request))
+      ->render('settings.donors.index', compact(
+        'statusUserTypes'
+      ));
   }
 
   /**
@@ -39,7 +46,7 @@ class DonorController extends Controller
   {
     $donor->dateBrith = Helper::parseDateTime($donor->dob, true);
     $donor->ageDonor = "{$donor->age} Tahun";
-    $donor->status = $donor->user->status ? "Active" : 'Inactive';
+    $donor->status = $donor->user->status ? "Active" : "Inactive";
     $donor->avatar = $donor->user->getUserAvatar();
 
     return response()->json($donor);

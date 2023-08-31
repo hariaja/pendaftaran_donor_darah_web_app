@@ -66,6 +66,14 @@ class DonorDataTable extends DataTable
     return $this->builder()
       ->setTableId('donor-table')
       ->columns($this->getColumns())
+      ->ajax([
+        'url' => route('donations.index'),
+        'type' => 'GET',
+        'data' => "
+          function(data) {
+            data.status = $('select[name=status]').val();
+          }"
+      ])
       ->addTableClass([
         'table',
         'table-striped',

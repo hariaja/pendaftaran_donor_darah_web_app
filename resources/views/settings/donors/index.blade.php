@@ -14,6 +14,20 @@
   </div>
   <div class="block-content">
 
+    <div class="row">
+      <div class="col-md-4">
+        <div class="mb-4">
+          <label for="status" class="form-label">{{ trans('Filter Berdasarkan Status Akun') }}</label>
+          <select type="text" class="form-select" name="status" id="status">
+            <option value="{{ Helper::ALL }}">{{ Helper::ALL }}</option>
+            @foreach ($statusUserTypes as $item)
+              <option value="{{ $item }}">{{ $item ? ucfirst('Active') : ucfirst('Inactive') }}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+    </div>
+
     <div class="my-3">
       {{ $dataTable->table() }}
     </div>
