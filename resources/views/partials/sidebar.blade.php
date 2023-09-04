@@ -82,6 +82,15 @@
             </a>
           </li>
 
+          @can('events.index')
+            <li class="nav-main-item">
+              <a class="nav-main-link {{ Request::is('events*') ? 'active' : '' }}" href="{{ route('events.index') }}">
+                <i class="nav-main-link-icon fa fa-calendar"></i>
+                <span class="nav-main-link-name">{{ trans('page.events.title') }}</span>
+              </a>
+            </li>
+          @endcan
+
           @canany(['roles.index', 'users.index', 'donations.index'])
             <li class="nav-main-heading">{{ trans('Management') }}</li>
             <li class="nav-main-item {{ Request::is('settings*') ? 'open' : '' }}">

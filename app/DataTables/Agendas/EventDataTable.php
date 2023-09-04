@@ -1,20 +1,19 @@
 <?php
 
-namespace App\DataTables\Settings;
+namespace App\DataTables\Agendas;
 
-use App\Helpers\Enum\RoleType;
-use App\Models\Role;
+use App\Models\Event;
+use App\Services\Event\EventService;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use App\Services\Role\RoleService;
-use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class RoleDataTable extends DataTable
+class EventDataTable extends DataTable
 {
   /**
    * Create a new datatables instance.
@@ -22,7 +21,7 @@ class RoleDataTable extends DataTable
    * @return void
    */
   public function __construct(
-    protected RoleService $roleService,
+    protected EventService $eventService,
   ) {
     // 
   }
@@ -36,13 +35,10 @@ class RoleDataTable extends DataTable
   {
     return (new EloquentDataTable($query))
       ->addIndexColumn()
-      ->addColumn('user_count', function ($row) {
-        return "{$row->users->count()} Akun";
-      })
-      ->addColumn('permission_count', fn ($row) => $row->definePermissionCount())
-      ->addColumn('action', 'settings.roles.action')
+      ->editColumn('status', fn ($row) => $row->getEventStatus())
+      ->addColumn('action', 'agendas.events.action')
       ->rawColumns([
-        'permission_count',
+        'status',
         'action',
       ]);
   }
@@ -50,9 +46,9 @@ class RoleDataTable extends DataTable
   /**
    * Get the query source of dataTable.
    */
-  public function query(): QueryBuilder
+  public function query(Event $model): QueryBuilder
   {
-    return $this->roleService->selectRoleWhereIn(RoleType::toArray(0, 1))->oldest('name');
+    return $this->eventService->query()->latest();
   }
 
   /**
@@ -61,7 +57,7 @@ class RoleDataTable extends DataTable
   public function html(): HtmlBuilder
   {
     return $this->builder()
-      ->setTableId('role-table')
+      ->setTableId('event-table')
       ->columns($this->getColumns())
       ->minifiedAjax()
       ->addTableClass([
@@ -94,13 +90,13 @@ class RoleDataTable extends DataTable
         ->width('10%')
         ->addClass('text-center'),
       Column::make('name')
-        ->title(trans('Role'))
+        ->title(trans('Nama Event'))
         ->addClass('text-center'),
-      Column::make('user_count')
-        ->title(trans('Jumlah Pengguna'))
+      Column::make('organizer')
+        ->title(trans('Penyelenggara'))
         ->addClass('text-center'),
-      Column::make('permission_count')
-        ->title(trans('Jumlah Hak Akses'))
+      Column::make('status')
+        ->title(trans('Status Event'))
         ->addClass('text-center'),
       Column::computed('action')
         ->exportable(false)
@@ -115,6 +111,6 @@ class RoleDataTable extends DataTable
    */
   protected function filename(): string
   {
-    return 'Role_' . date('YmdHis');
+    return 'Event_' . date('YmdHis');
   }
 }

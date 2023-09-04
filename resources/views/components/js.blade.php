@@ -18,6 +18,7 @@
 <script src="{{ asset('assets/template/src/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
 <script src="{{ asset('assets/template/src/js/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/template/src/js/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 <!-- Page JS Code -->
 <script src="{{ asset('assets/template/src/js/pages/be_tables_datatables.min.js') }}"></script>

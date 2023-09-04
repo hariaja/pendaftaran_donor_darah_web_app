@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\Enum\RoleType;
+use App\Http\Controllers\Agendas\EventController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -55,6 +56,9 @@ Route::middleware([
   // Management password users.
   Route::get('users/password/{user}', [PasswordController::class, 'showChangePasswordForm'])->name('users.password');
   Route::post('users/password', [PasswordController::class, 'store']);
+
+  // Management event.
+  Route::resource('events', EventController::class);
 });
 
 require __DIR__ . '/donor.php';

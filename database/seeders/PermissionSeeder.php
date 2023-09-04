@@ -41,6 +41,15 @@ class PermissionSeeder extends Seeder
       'donations.show',
       'donations.update',
       'donations.destroy',
+
+      // Halaman Event/Acara
+      'events.index',
+      'events.create',
+      'events.store',
+      'events.show',
+      'events.edit',
+      'events.update',
+      'events.destroy',
     ];
 
     $guardName = 'web';
@@ -48,6 +57,7 @@ class PermissionSeeder extends Seeder
       'users' => 1,
       'roles' => 2,
       'donations' => 3,
+      'events' => 4,
     ];
 
     foreach ($permissions as $permission) :

@@ -35,4 +35,15 @@ return [
     'update' => 'Perbarui Pendonor yang ditentukan dalam penyimpanan',
     'destroy' => 'Hapus Pendonor yang ditentukan dari penyimpanan',
   ],
+
+  'events' => [
+    'name' => 'Management Event',
+    'index' => 'Menampilkan daftar Event',
+    'create' => 'Tampilkan formulir untuk membuat Event baru',
+    'store' => 'Simpan Event yang baru dibuat di penyimpanan',
+    'show' => 'Menampilkan Event yang ditentukan (Detail)',
+    'edit' => 'Tampilkan formulir untuk mengedit Event yang ditentukan',
+    'update' => 'Perbarui Event yang ditentukan dalam penyimpanan',
+    'destroy' => 'Hapus Event yang ditentukan dari penyimpanan',
+  ],
 ];

@@ -50,4 +50,13 @@ return [
     'show' => 'Detail Data Pendonor',
     'delete' => 'Hapus Pendonor',
   ],
+
+  'events' => [
+    'title' => 'Event',
+    'index' => 'Daftar Event',
+    'create' => 'Tambah Event',
+    'edit' => 'Ubah Event',
+    'show' => 'Detail Event',
+    'delete' => 'Hapus Event',
+  ],
 ];
